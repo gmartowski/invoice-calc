@@ -1,5 +1,20 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "member-ordering": false,
+    "trailing-comma": false,
+    "ordered-imports": false,
+    "new-parens": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": false,
+    "no-console": false
+  },
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
