@@ -8,43 +8,49 @@ export class Home extends React.Component<any, any> {
         this.state = {
             bruttoQuota: 0,
             nettoQuota: 0,
-            taxRate: 0,
+            taxRate: 0.05,
             vatTax: 0
         }
     }
 
-    private calculateTaxAndQuota = (netto: number, rate: number) => {
+    private calculateTaxAndQuota = () => {
         this.setState({
-            bruttoQuota: netto + netto * rate,
-            vatTax: netto * rate
+            bruttoQuota: parseFloat(this.state.nettoQuota + this.state.nettoQuota * this.state.taxRate),
+            vatTax: this.state.nettoQuota * this.state.taxRate
         })
     }
 
 
     private inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({[e.target.name]: e.target.value});
-        this.calculateTaxAndQuota(this.state.nettoQuota, this.state.taxRate);
+        this.setState({[e.target.name]: e.target.value ? parseFloat(e.target.value) : 0}, () => {
+            this.calculateTaxAndQuota();
+        });
+
+    }
+
+    private selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        this.setState({[e.target.name]: e.target.value ? parseFloat(e.target.value) : 0}, () => {
+            this.calculateTaxAndQuota();
+        });
+
+        console.log(this.state);
     }
 
     public render() {
         const {bruttoQuota, nettoQuota, taxRate, vatTax} = this.state;
         return (
-            <div>
+            <div className="home">
                 <div className="form">
 
                     <label>Kwota netto</label>
                     <input type="text" name="nettoQuota" value={nettoQuota} onChange={this.inputHandler} />
 
                     <label>Stawka VAT</label>
-                    <select onChange={this.state.taxRate}>
-                        <option value="0">0</option>
-                        <option value="5">5</option>
-                        <option value="8">8</option>
-                        <option value="23">23</option>
+                    <select onChange={this.selectHandler} name="taxRate">
+                        <option value="0.05">5</option>
+                        <option value="0.08">8</option>
+                        <option value="0.23">23</option>
                     </select>
-
-                    <label>Kwota brutto</label>
-                    <input type="text" name="bruttoQuota" value={bruttoQuota} onChange={this.inputHandler} />
                 </div>
 
                 <div className="preview">
