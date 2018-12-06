@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FooterWrapper } from './footer.styled';
 
 interface IProps {
     footerContent: string;
@@ -8,9 +9,10 @@ interface IProps {
 export class Footer extends React.Component<IProps> {
     public render() {
         return (
-            <footer>
-                Jakaś tam stopka
-            </footer>
+            <FooterWrapper>
+                <div>{this.props.footerContent}</div>
+                <div>{this.props.copyright}</div>
+            </FooterWrapper>
         )
     }
 }
